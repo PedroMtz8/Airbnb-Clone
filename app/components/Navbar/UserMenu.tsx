@@ -1,17 +1,16 @@
-'use client'
-
+'use client';
 import { AiOutlineMenu } from "react-icons/ai"
 import Avatar from "../Avatar"
+import MenuItem from "./MenuItem"
 import { useCallback, useState } from "react"
-import MenuItem from "./Menu"
 
 function UserMenu() {
 
     const [isOpen, setIsOpen] = useState(false)
 
     const toggleMenu = useCallback(() => {
-        setIsOpen(value => value)
-    },[])
+        setIsOpen(value => !value)
+    }, [])
 
     return (
         <div className="relative ">
@@ -73,7 +72,8 @@ function UserMenu() {
                     " >
                         <div className="flex flex-col cursor-pointer" >
                             <>
-                                <MenuItem onClick={() => {}} label="login" />                            
+                                <MenuItem onClick={() => { }} label="Login" />
+                                <MenuItem onClick={() => { }} label="Sign Up" />                            
                             </>
                         </div>
                     </div>
