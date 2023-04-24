@@ -6,15 +6,20 @@ const Logo = () => {
     const router = useRouter();
 
     return (
-        <Image alt="Logo"
-            className="
-            hidden 
-            md:block 
-            cursro-pointer"
-            height="100"
-            width="100"
-            src="/images/logo.png"
-        />
+        <div style={{ width: "100px" }} >
+
+            <Image alt="Logo"
+                className="
+                  hidden 
+                  md:block 
+                  cursor-pointer"
+                width="100"
+                height="100"
+                src="/images/logo.png"
+                style={{ height: "auto", width: "auto" }}
+                priority={true}
+            />
+        </div>
     )
 }
 
