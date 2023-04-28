@@ -69,6 +69,7 @@ function RegisterModal() {
                 register={register}
                 errors={errors}
                 required
+                type="password"
             />
         </div>
     )
