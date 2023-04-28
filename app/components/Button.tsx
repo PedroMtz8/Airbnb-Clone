@@ -7,10 +7,11 @@ interface ButtonProps {
     disabled?: boolean
     outline?: boolean
     small?: boolean
-    icon?: IconType
+    icon?: IconType,
+    type?: "submit"
 }
 
-function Button({ label, onClick, disabled, outline, small, icon: Icon }: ButtonProps) {
+function Button({ label, onClick, disabled, outline, type, small, icon: Icon }: ButtonProps) {
     return (
         <button
             onClick={onClick}

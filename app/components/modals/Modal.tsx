@@ -143,7 +143,7 @@ function Modal({
                             </header>
 
                             {/* BODY */}
-
+                            <form>
                             <div className="relative p-6 flex-auto" >
                                 {body}
                             </div>
@@ -160,17 +160,18 @@ function Modal({
                                                 label={secondaryActionLabel}
                                                 onClick={handleSecondaryAction}
 
-                                            />
-                                        )}
+                                                />
+                                            )}
                                     <Button
                                         disabled={disabled}
                                         label={actionLabel}
                                         onClick={handleSubmit}
-
-                                    />
+                                            type="submit"
+                                        />
                                 </div>
                                 {footer}
                             </footer>
+                            </form>
                         </div>
                     </div>
                 </div>

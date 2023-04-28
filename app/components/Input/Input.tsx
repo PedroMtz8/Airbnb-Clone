@@ -22,6 +22,7 @@ function Input({ id, label, type = "text", disabled, formatPrice, required, regi
                 {...register(id, { required })}
                 placeholder="  "
                 type={type}
+                autoComplete="on"
                 className={`
                     peer
                     w-full
