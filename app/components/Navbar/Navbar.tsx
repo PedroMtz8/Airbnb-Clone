@@ -1,12 +1,12 @@
 'use client';
-import { User } from "@prisma/client";
 import Container from "../Container";
 import Logo from "./Logo";
 import Search from "./Search";
 import UserMenu from "./UserMenu";
+import { SaveUser } from "@/app/types";
 
 interface NavbarProps {
-    currentUser?: User | null;
+    currentUser?: SaveUser | null;
 }
 
 function Navbar({ currentUser }: NavbarProps) {
@@ -27,7 +27,7 @@ function Navbar({ currentUser }: NavbarProps) {
                     >
                         <Logo />
                         <Search />
-                        <UserMenu />
+                        <UserMenu currentUser={currentUser} />
 
                     </div>
                 </Container>

@@ -5,8 +5,14 @@ import MenuItem from "./MenuItem"
 import { useCallback, useState } from "react"
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import useLoginModal from "@/app/hooks/useLoginModal";
+import { signOut } from "next-auth/react"
+import { SaveUser } from "@/app/types";
 
-function UserMenu() {
+interface UserMenuProps {
+    currentUser?: SaveUser | null
+}
+
+function UserMenu({ currentUser }: UserMenuProps) {
     const registerModal = useRegisterModal()
     const loginModal = useLoginModal()
     const [isOpen, setIsOpen] = useState(false)
@@ -74,10 +80,27 @@ function UserMenu() {
                         text-sm
                     " >
                         <div className="flex flex-col cursor-pointer" >
-                            <>
+                            {
+                                currentUser ? (
+                                    <>
+                                        <MenuItem onClick={() => { }} label="My trips" />
+                                        <MenuItem onClick={() => { }} label="My favorites" />
+                                        <MenuItem onClick={() => { }} label="My reservations" />
+                                        <MenuItem onClick={() => { }} label="My properties" />
+                                        <MenuItem onClick={() => { }} label="Airbnb my home" />
+                                        <hr />
+                                        <MenuItem onClick={() => signOut()} label="Logout" />
+                                    </>
+                                )
+                                    :
+                                    (
+                                        <>
                                 <MenuItem onClick={loginModal.onOpen} label="Login" />
                                 <MenuItem onClick={registerModal.onOpen} label="Sign Up" />                            
                             </>
+                                    )
+                            }
+
                         </div>
                     </div>
                 )
