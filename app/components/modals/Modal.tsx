@@ -143,14 +143,13 @@ function Modal({
                             </header>
 
                             {/* BODY */}
-                            <form>
-                            <div className="relative p-6 flex-auto" >
+                            <div className="relative px-6 pt-6 flex-auto" >
                                 {body}
                             </div>
 
                             {/* FOOTER */}
 
-                            <footer className="flex flex-col gap-2 p-6" >
+                            <footer className="flex flex-col gap-2 px-6 pb-6" >
                                 <div className="flex flex-row items-center gap-4 w-full">
                                     {
                                         secondaryAction && secondaryActionLabel && (
@@ -162,16 +161,15 @@ function Modal({
 
                                                 />
                                             )}
-                                    <Button
+                                    {/* <Button
                                         disabled={disabled}
                                         label={actionLabel}
                                         onClick={handleSubmit}
                                             type="submit"
-                                        />
+                                        /> */}
                                 </div>
                                 {footer}
                             </footer>
-                            </form>
                         </div>
                     </div>
                 </div>
