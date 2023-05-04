@@ -15,7 +15,7 @@ function MenuItem({onClick, label}: MenuItemProps){
                 hover:bg-white-100
                 transition
                 font-semibold
-            "
+                "
         >
             {label}
 

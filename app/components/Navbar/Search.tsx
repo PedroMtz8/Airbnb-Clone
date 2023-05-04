@@ -15,7 +15,7 @@ const Search = () => {
                 hover:shadow-md
                 transition
                 cursor-pointer
-            "
+                "
         >
             <div
                 className="
@@ -23,14 +23,14 @@ const Search = () => {
                   flex-row
                   items-center
                   justify-between
-                "
+                    "
             >
                 <div
                     className="
                         text-sm
                         font-semibold
                         px-6
-                    "
+                        "
                 >
                     Anywhere
 
@@ -45,7 +45,7 @@ const Search = () => {
                         border-x-[1px]
                         flex-1
                         text-center
-                    "
+                        "
                 >
                     Any week
                 </div>
@@ -59,7 +59,7 @@ const Search = () => {
                         flex-row
                         items-center
                         gap-3
-                    "
+                        "
                 >
                     <div className="hidden sm:block"> Add Guests </div>
                     <div className="

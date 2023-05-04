@@ -24,7 +24,7 @@ function Navbar({ currentUser }: NavbarProps) {
                             justify-between
                             gap-3
                             md:gap-0
-                        "
+                            "
                     >
                         <Logo />
                         <Search />
