@@ -5,6 +5,7 @@ import MenuItem from "./MenuItem"
 import { useCallback, useState } from "react"
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import useLoginModal from "@/app/hooks/useLoginModal";
+import useRentModal from "@/app/hooks/userRentModal";
 import { signOut } from "next-auth/react"
 import { SaveUser } from "@/app/types";
 
@@ -15,17 +16,24 @@ interface UserMenuProps {
 function UserMenu({ currentUser }: UserMenuProps) {
     const registerModal = useRegisterModal()
     const loginModal = useLoginModal()
+    const rentModal = useRentModal()
     const [isOpen, setIsOpen] = useState(false)
 
     const toggleMenu = useCallback(() => {
         setIsOpen(value => !value)
     }, [])
 
+    const onRent = useCallback(() => {
+        if (!currentUser) return loginModal.onOpen();
+        rentModal.onOpen();
+
+    }, [currentUser, loginModal, rentModal]);
+
     return (
         <div className="relative ">
             <div className="flex flex-row items-center gap-3">
                 <div
-                    onClick={() => { }}
+                    onClick={onRent}
                     className="
                         hidden
                         md:block

@@ -9,14 +9,18 @@ const Logo = () => {
         <div style={{ width: "100px" }} >
 
             <Image alt="Logo"
+                onClick={() => router.push("/")}
                 className="
                   hidden 
                   md:block 
-                  cursor-pointer"
-                width="100"
-                height="100"
+                  cursor-pointer
+                  w-full
+                  h-auto
+                  "
+                width="0"
+                height="0"
+                sizes="100vw"
                 src="/images/logo.png"
-                style={{ height: "auto", width: "auto" }}
                 priority={true}
             />
         </div>

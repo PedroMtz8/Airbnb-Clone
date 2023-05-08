@@ -1,5 +1,4 @@
 'use client';
-
 import { useCallback, useState } from "react";
 import { toast } from "react-hot-toast";
 import { signIn } from 'next-auth/react';
@@ -22,8 +21,10 @@ import Button from "../Button";
 
 const LoginModal = () => {
     const router = useRouter();
+
     const loginModal = useLoginModal();
     const registerModal = useRegisterModal();
+
     const [isLoading, setIsLoading] = useState(false);
 
     const {
@@ -141,7 +142,7 @@ const LoginModal = () => {
             disabled={isLoading}
             isOpen={loginModal.isOpen}
             title="Login"
-            actionLabel="Continue"
+            // actionLabel="Continue"
             onClose={loginModal.onClose}
             onSubmit={handleSubmit(onSubmit)}
             body={bodyContent}
