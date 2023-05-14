@@ -62,7 +62,7 @@ const RegisterModal = () => {
     const bodyContent = (
         <form>
 
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 relative">
                 <Heading
                     title="Welcome to Airbnb"
                     subtitle="Create an account!"
@@ -98,9 +98,10 @@ const RegisterModal = () => {
                     onClick={handleSubmit(onSubmit)}
                     type="submit"
                 />
-                <div className="flex justify-center">
+                <div className="flex justify-center translate-y-3">
                     <p>Or</p>
                 </div>
+
             </div>
         </form>
     )

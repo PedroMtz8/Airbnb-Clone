@@ -22,9 +22,7 @@ function Modal({
     actionLabel, disabled,
     secondaryAction, secondaryActionLabel }
     : ModalProps) {
-
     const [showModal, setShowModal] = useState(isOpen);
-
     const handleClose = useCallback(() => {
         if (disabled) return;
         setShowModal(false);
@@ -109,7 +107,6 @@ function Modal({
                             bg-white
                             outline-none
                             focus:outline-none
-
                         "
                         >
                             <header
@@ -143,7 +140,7 @@ function Modal({
                             </header>
 
                             {/* BODY */}
-                            <div className="relative px-6 pt-6 flex-auto" >
+                            <div className="relative p-6 flex-auto" >
                                 {body}
                             </div>
 
@@ -155,7 +152,7 @@ function Modal({
                                         secondaryAction && secondaryActionLabel && (
                                             <Button
                                                 outline
-                                                disabled
+                                                disabled={disabled}
                                                 label={secondaryActionLabel}
                                                 onClick={handleSecondaryAction}
 

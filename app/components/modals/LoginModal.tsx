@@ -99,7 +99,7 @@ const LoginModal = () => {
                     onClick={handleSubmit(onSubmit)}
                     type="submit"
                 />
-                <div className="flex justify-center">
+                <div className="flex justify-center translate-y-3">
                     <p>Or</p>
                 </div>
             </div>

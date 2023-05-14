@@ -62,7 +62,7 @@ function RentModal() {
     }
 
     const actionLabel = useMemo(() => {
-        if (step !== STEPS.PRICE) {
+        if (step === STEPS.PRICE) {
             return 'Create'
         }
 
@@ -70,7 +70,7 @@ function RentModal() {
     }, [step])
 
     const secondaryActionLabel = useMemo(() => {
-        if (step !== STEPS.CATEGORY) {
+        if (step === STEPS.CATEGORY) {
             return undefined
         }
         return 'Back'
@@ -107,13 +107,23 @@ function RentModal() {
             </div>
         </div>
     )
+    if (step === STEPS.LOCATION) {
+        bodyContent = (
+            <div className="flex flex-col gap-8" >
+                <Heading
+                    title='Where is your place located?'
+                    subtitle="Helps guests find you!"
+                />
+            </div>
+        )
+    }
 
     return (
         <Modal
             title="Airbnb your home"
             isOpen={rentModal.isOpen}
             onClose={rentModal.onClose}
-            onSubmit={rentModal.onClose}
+            onSubmit={onNext}
             body={bodyContent}
             actionLabel={actionLabel}
             secondaryActionLabel={secondaryActionLabel}
