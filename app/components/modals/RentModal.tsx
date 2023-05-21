@@ -6,6 +6,7 @@ import Heading from "../Heading";
 import { categories } from "../Navbar/Categories";
 import CategoryInput from "../Input/CategoryInput";
 import { FieldValues, useForm } from "react-hook-form";
+import CountrySelect from "../Input/CountrySelect";
 
 enum STEPS {
     CATEGORY = 0,
@@ -113,6 +114,9 @@ function RentModal() {
                 <Heading
                     title='Where is your place located?'
                     subtitle="Helps guests find you!"
+                />
+                <CountrySelect
+
                 />
             </div>
         )
