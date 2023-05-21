@@ -1,12 +1,14 @@
 'use client';
-import useRentModal from "@/app/hooks/userRentModal";
-import Modal from "./Modal";
 import { useMemo, useState } from "react";
-import Heading from "../Heading";
-import { categories } from "../Navbar/Categories";
-import CategoryInput from "../Input/CategoryInput";
 import { FieldValues, useForm } from "react-hook-form";
+import useRentModal from "@/app/hooks/userRentModal";
+import { categories } from "../Navbar/Categories";
+
+import Modal from "./Modal";
+import Heading from "../Heading";
+import CategoryInput from "../Input/CategoryInput";
 import CountrySelect from "../Input/CountrySelect";
+import dynamic from 'next/dynamic';
 
 enum STEPS {
     CATEGORY = 0,
@@ -45,6 +47,12 @@ function RentModal() {
     });
 
     const category = watch('category');
+    const location = watch('location');
+    console.log("Soy el lugar", location)
+
+    const Map = useMemo(() => dynamic(() => import('../Map'), {
+        ssr: false
+    }), [location])
 
     const setCustomValue = (id: string, value: any) => {
         setValue(id, value, {
@@ -116,7 +124,11 @@ function RentModal() {
                     subtitle="Helps guests find you!"
                 />
                 <CountrySelect
-
+                    value={location}
+                    onChange={(value) => setCustomValue('location', value)}
+                />
+                <Map
+                    center={location?.latlng}
                 />
             </div>
         )
