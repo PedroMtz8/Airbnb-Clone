@@ -1,3 +1,4 @@
+'use client';
 import Image from "next/image";
 
 interface AvatarProps {
@@ -16,4 +17,4 @@ function Avatar({ src }: AvatarProps) {
     )
 }
 
-export default Avatar
+export default Avatar;
