@@ -11,6 +11,7 @@ import CountrySelect from "../Input/CountrySelect";
 import dynamic from 'next/dynamic';
 import Counter from '../Input/Counter';
 import ImageUpload from '../Input/ImageUploud';
+import Input from '../Input/Input';
 
 enum STEPS {
     CATEGORY = 0,
@@ -24,6 +25,7 @@ enum STEPS {
 function RentModal() {
     const rentModal = useRentModal()
     const [step, setStep] = useState(STEPS.CATEGORY);
+    const [isLoading, setIsLoading] = useState(false);
 
     const {
         register,
@@ -152,12 +154,14 @@ function RentModal() {
                     value={guestCount}
                     onChange={(value) => setCustomValue('guestCount', value)}
                 />
+                <hr />
                 <Counter
                     title='Rooms'
                     subtitle='How many do you have?'
                     value={roomCount}
                     onChange={(value) => setCustomValue('roomCount', value)}
                 />
+                <hr />
                 <Counter
                     title='Bathrooms'
                     subtitle='How many bathrooms do you have?'
@@ -178,6 +182,34 @@ function RentModal() {
                 <ImageUpload
                     value={imageSrc}
                     onChange={(value) => setCustomValue('imageSrc', value)}
+                />
+            </div>
+        )
+    }
+
+    if (step === STEPS.DESCRIPTION) {
+        bodyContent = (
+            <div className='flex flex-col gap-8'>
+                <Heading
+                    title='How would you describe your place?'
+                    subtitle='Short and sweet works best!'
+                />
+                <Input
+                    id='title'
+                    label='Title'
+                    disabled={isLoading}
+                    register={register}
+                    errors={errors}
+                    required
+                />
+                <hr />
+                <Input
+                    id='description'
+                    label='Description'
+                    disabled={isLoading}
+                    register={register}
+                    errors={errors}
+                    required
                 />
             </div>
         )
