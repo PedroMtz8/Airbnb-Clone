@@ -1,6 +1,6 @@
 'use client';
 import { useMemo, useState } from "react";
-import { FieldValues, useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import useRentModal from "@/app/hooks/userRentModal";
 import { categories } from "../Navbar/Categories";
 
@@ -12,6 +12,9 @@ import dynamic from 'next/dynamic';
 import Counter from '../Input/Counter';
 import ImageUpload from '../Input/ImageUploud';
 import Input from '../Input/Input';
+import axios from 'axios';
+import { toast } from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 enum STEPS {
     CATEGORY = 0,
@@ -23,6 +26,7 @@ enum STEPS {
 }
 
 function RentModal() {
+    const router = useRouter();
     const rentModal = useRentModal()
     const [step, setStep] = useState(STEPS.CATEGORY);
     const [isLoading, setIsLoading] = useState(false);
@@ -75,6 +79,26 @@ function RentModal() {
 
     const onNext = () => {
         setStep((value) => value + 1)
+    }
+
+    const onSubmit: SubmitHandler<FieldValues> = (data) => {
+        if (step !== STEPS.PRICE) {
+            return onNext()
+        }
+        setIsLoading(true)
+        axios.post('/api/listings', data)
+            .then(() => {
+                toast.success("Listing Created!");
+                router.refresh();
+                reset();
+                setStep(STEPS.CATEGORY);
+                rentModal.onClose();
+            })
+            .catch(err => {
+                toast.error('Something went wrong.')
+            }).finally(() => {
+                setIsLoading(false);
+            })
     }
 
     const actionLabel = useMemo(() => {
@@ -215,12 +239,33 @@ function RentModal() {
         )
     }
 
+    if (step === STEPS.PRICE) {
+        bodyContent = (
+            <div className='flex flex-col gap-8'>
+                <Heading
+                    title='Set your price'
+                    subtitle='How much do you charge per night?'
+                />
+                <Input
+                    id='price'
+                    label='Price'
+                    formatPrice
+                    type='number'
+                    disabled={isLoading}
+                    register={register}
+                    errors={errors}
+                    required
+                />
+            </div>
+        )
+    }
+
     return (
         <Modal
             title="Airbnb your home"
             isOpen={rentModal.isOpen}
             onClose={rentModal.onClose}
-            onSubmit={onNext}
+            onSubmit={handleSubmit(onSubmit)}
             body={bodyContent}
             actionLabel={actionLabel}
             secondaryActionLabel={secondaryActionLabel}
