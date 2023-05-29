@@ -17,7 +17,7 @@ interface ListingCardProps {
   disabled?: boolean;
   actionLabel?: string;
   actionId?: string;
-  currentUser?: SaveUser
+  currentUser?: SaveUser | null
 }
 
 function ListingCard({ data, reservation, onAction, disabled, actionLabel, actionId = "", currentUser }: ListingCardProps) {

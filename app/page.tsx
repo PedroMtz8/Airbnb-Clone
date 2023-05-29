@@ -36,23 +36,10 @@ export default async function Home() {
           {
             listings.map(listing => (
               <ListingCard
-                currentUser={currentUser}
+                currentUser={currentUser || null}
                 key={listing.title}
                 data={listing}
               />
-              // <div key={listing.title}  >
-              //   {listing.title}
-              //   <div>
-              //     <Image
-              //       src={listing.imageSrc}
-              //       // className="rounded-full"
-              //       alt="image"
-              //       height="100"
-              //       width="100"
-              //     />
-              //     {/* {listing.imageSrc} */}
-              //   </div>
-              // </div>
             ))
           }
         </div>
