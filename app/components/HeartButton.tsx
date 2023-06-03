@@ -12,7 +12,6 @@ interface HeartButtonProps {
 function HeartButton({ listingId, currentUser }: HeartButtonProps) {
   const { hasFavorite, toggleFavorite } = useFavorite({ listingId, currentUser });
 
-
   return (
     <div
       onClick={toggleFavorite}
