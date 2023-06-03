@@ -57,6 +57,7 @@ function ImageUploads({ value, onChange }: ImageUploadProps) {
                   <Image
                     alt='upload'
                     fill
+                    sizes="md"
                     style={{ objectFit: 'cover' }}
                     src={value}
                   />

@@ -20,7 +20,7 @@ export default async function Home() {
   }
 
   return (
-    <ClientOnly>
+    <ClientOnly >
       <Container>
         <div className='
           pt-24

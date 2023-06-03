@@ -71,6 +71,8 @@ function ListingCard({ data, reservation, onAction, disabled, actionLabel, actio
             alt="Listing"
             src={data.imageSrc}
             fill
+            sizes="md"
+            priority
             className='object-cover h-full w-full group-hover:scale-110 transition'
           />
           <div
