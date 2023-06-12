@@ -1,5 +1,4 @@
 'use client';
-
 import useCountries from '@/app/hooks/useCountries';
 import { SaveUser } from '@/app/types';
 import { IconType } from 'react-icons';
