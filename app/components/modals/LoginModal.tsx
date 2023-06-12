@@ -59,7 +59,7 @@ const LoginModal = () => {
 
                     if (callback?.error) {
                         toast.error(callback.error);
-                        console.log("El error", callback.error)
+                        // console.log("El error", callback.error)
                     }
                 });
         }

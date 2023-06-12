@@ -27,7 +27,6 @@ export async function POST(request: Request, { params }: { params: IParams }) {
       favoriteIds
     }
   })
-  console.log(user)
   return NextResponse.json(user)
 
 }
