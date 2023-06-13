@@ -1,7 +1,6 @@
 'use client';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Reservation } from '@prisma/client';
-import { SafeListing, SaveUser } from '@/app/types';
+import { SafeListing, SafeReservation, SaveUser } from '@/app/types';
 import { categories } from '@/app/components/Navbar/Categories';
 import Container from '@/app/components/Container';
 import ListingHead from '@/app/components/Listings/ListingHead';
@@ -15,7 +14,7 @@ import ListingReservation from '@/app/components/Listings/ListingReservation';
 import { Range } from 'react-date-range';
 
 interface ListingClientProps {
-  reservation?: Reservation[],
+  reservations?: SafeReservation[],
   listing: SafeListing & { user: SaveUser },
   currentUser?: SaveUser | null
 }
@@ -26,7 +25,7 @@ const initialDateRange = {
   key: 'selection'
 }
 
-function ListingClient({ listing, currentUser, reservation = [] }: ListingClientProps) {
+function ListingClient({ listing, currentUser, reservations = [] }: ListingClientProps) {
 
   const loginModal = useLoginModal();
   const router = useRouter();
@@ -34,7 +33,7 @@ function ListingClient({ listing, currentUser, reservation = [] }: ListingClient
   const disabledDates = useMemo(() => {
     let dates: Date[] = []
     
-    reservation.forEach((reservation) => {
+    reservations.forEach((reservation) => {
       const range = eachDayOfInterval({
         start: new Date(reservation.startDate),
         end: new Date(reservation.endDate)
@@ -44,7 +43,7 @@ function ListingClient({ listing, currentUser, reservation = [] }: ListingClient
     })
 
     return dates
-  },[reservation])
+  },[reservations])
 
   const [isLoading, setIsLoading] = useState(false);
   const [totalPrice, setTotalPrice] = useState(listing.price);
@@ -54,11 +53,11 @@ function ListingClient({ listing, currentUser, reservation = [] }: ListingClient
     if (!currentUser) return loginModal.onOpen();
     setIsLoading(true);
 
-    axios.post("/api/reservation",{
+    axios.post("/api/reservations",{
       totalPrice,
       startDate: dateRange.startDate,
       endDate: dateRange.endDate,
-      listing: listing?.id
+      listingId: listing?.id
     })
       .then(() => {
         toast.success("Listing reserved");
