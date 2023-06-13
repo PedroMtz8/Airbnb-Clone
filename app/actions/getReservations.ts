@@ -11,8 +11,6 @@ export default async function getReservations(params: IParams) {
   const { listingId, userId, authorId } = params;
 
   try {
-
-
     const query: any = {};
 
     if (listingId) {
@@ -50,7 +48,7 @@ export default async function getReservations(params: IParams) {
       })
     );
 
-    return safeReservations
+    return safeReservations;
 
   } catch (error: any) {
     throw new Error(error);
