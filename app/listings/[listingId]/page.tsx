@@ -22,6 +22,9 @@ export async function generateMetadata({params: { listingId } }: Params){
   return {
     title: listing?.title + " | Airbnb",
     description: listing?.description,
+    openGraph: {
+      images: [listing?.imageSrc],
+    },
     // icons: {
     //   icon: listing?.imageSrc
     // },
