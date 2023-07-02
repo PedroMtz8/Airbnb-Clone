@@ -9,6 +9,7 @@ import { format } from "date-fns";
 import Image from 'next/image';
 import HeartButton from '../HeartButton';
 import Button from '../Button';
+import Avatar from '../Avatar';
 
 interface ListingCardProps {
   data: SafeListing;
@@ -18,12 +19,13 @@ interface ListingCardProps {
   actionLabel?: string;
   actionId?: string;
   currentUser?: SaveUser | null
+  displayUser?: boolean;
 }
 
-function ListingCard({ data, reservation, onAction, disabled, actionLabel, actionId = "", currentUser }: ListingCardProps) {
+function ListingCard({ data, reservation, onAction, disabled, actionLabel, actionId = "", currentUser, displayUser }: ListingCardProps) {
   const router = useRouter();
   const { getByValue } = useCountries();
-
+  // console.log
   const location = getByValue(data.locationValue);
 
   const handleCancel = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
@@ -48,15 +50,13 @@ function ListingCard({ data, reservation, onAction, disabled, actionLabel, actio
     return `${format(start, 'PP')} - ${format(end, 'PP')}`
   }, [reservation])
 
+  const username = reservation?.user?.name?.split(' ')[0];
+
   return (
-    <div
-      onClick={() => router.push(`/listings/${data.id}`)}
-      className='
-        col-span-1 cursor-pointer group  
-      '
-    >
+    <div className='col-span-1 group'>
       <div
-        className='flex flex-col gap-2 w-full'
+        className='flex flex-col gap-2 w-full cursor-pointer'
+        onClick={() => router.push(`/listings/${data.id}`)}
       >
         <div
           className='
@@ -103,8 +103,20 @@ function ListingCard({ data, reservation, onAction, disabled, actionLabel, actio
               <div className='font-light '>night</div>
             )
           }
-        </div>
 
+        </div>
+      </div>
+      <div className='flex flex-col gap-2 mt-2' >
+      {
+        displayUser && (
+          <div className='flex items-center gap-3'>
+                <Avatar 
+                  src={reservation?.user?.image}
+                />
+                <div>{username} Reserved this</div>
+              </div>
+            )
+          }
         {onAction && actionLabel && (
           <Button
             disabled={disabled}
@@ -113,8 +125,6 @@ function ListingCard({ data, reservation, onAction, disabled, actionLabel, actio
             onClick={handleCancel}
           />
         )}
-
-
       </div>
     </div>
   )

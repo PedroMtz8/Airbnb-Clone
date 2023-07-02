@@ -13,12 +13,18 @@ export type SaveUser = Omit<User, "createdAt" | "updatedAt" | "emailVerified"> &
   emailVerified: string | null;
 };
 
+export interface UserBasicInfo {
+  image: string;
+  name: string;
+}
+
 export type SafeReservation = Omit<
   Reservation,
   "createdAt" | "startDate" | "endDate" | "listing"
 > & {
   createdAt: string;
   startDate: string;
+  user: UserBasicInfo;
   endDate: string;
   listing: SafeListing;
 }
