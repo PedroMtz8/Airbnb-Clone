@@ -16,6 +16,9 @@ interface TripsClientProps {
 function TripsClient({reservations, currentUser}: TripsClientProps) {
   const router = useRouter();
 
+  const date = new Date();
+  const isoDate = date.toISOString();
+
   const [deletingId, setDeletingId] = useState("");
 
   const onCancel = useCallback((id: string)=> {
@@ -61,8 +64,8 @@ function TripsClient({reservations, currentUser}: TripsClientProps) {
             reservation={reservation}
             actionId={reservation.id}
             onAction={onCancel}
-            disabled={deletingId === reservation.id}
-            actionLabel="Cancel reservation"
+            disabled={deletingId === reservation.id || isoDate > reservation.endDate }
+            actionLabel={/* isoDate > reservation.endDate ? '' :  */'Cancel Reservation'}
             currentUser={currentUser}
           />
         ))
