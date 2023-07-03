@@ -2,6 +2,7 @@ import EmptyState from '../components/EmptyState';
 import ClientOnly from '../components/ClientOnly';
 import getCurrentUser from '../actions/getCurrentUser';
 import getFavoriteListings from '../actions/getFavorites';
+import FavoritesClient from './FavoritesClient';
 
 export default async function ListingPage(){
 
@@ -28,8 +29,7 @@ export default async function ListingPage(){
 
   return (
     <ClientOnly>
-      <div>Here will be favorites</div>
-      {/* <FavoritesClient /> */}
+      <FavoritesClient />
     </ClientOnly>
   )
 }
