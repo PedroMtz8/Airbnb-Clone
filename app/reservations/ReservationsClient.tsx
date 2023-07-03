@@ -19,6 +19,8 @@ function ReservationClient({reservations, currentUser}: ReservationClientProps){
   const router = useRouter();
   const [deletingId, setDeletingId] = useState('');
 
+  const date = new Date();
+  const isoDate = date.toISOString();
 
   const onCancel = useCallback((id: string) => {
     setDeletingId(id);
@@ -63,7 +65,7 @@ function ReservationClient({reservations, currentUser}: ReservationClientProps){
               actionId={reservation.id}
               onAction={onCancel}
               displayUser
-              disabled={deletingId === reservation.id}
+              disabled={deletingId === reservation.id || isoDate > reservation.endDate}
               actionLabel='Cancel guest reservation'
               currentUser={currentUser}
             />
