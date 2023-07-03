@@ -31,11 +31,6 @@ function UserMenu({ currentUser }: UserMenuProps) {
 
     }, [currentUser, loginModal, rentModal]);
 
-    let something = "xd"
-    const some = "hola"
-    something
-    some
-
     return (
         <div className="relative ">
             <div className="flex flex-row items-center gap-3">
@@ -102,9 +97,13 @@ function UserMenu({ currentUser }: UserMenuProps) {
                                             router.push("/trips")
                                             toggleMenu()
                                             }} label="My trips" />
-                                        <MenuItem onClick={() => {}} label="My favorites" />
+                                        <MenuItem onClick={() => {
+                                            router.push("/favorites")
+                                            toggleMenu()
+                                            }} label="My favorites" />
                                         <MenuItem onClick={() => {
                                             router.push("/reservations")
+                                            toggleMenu()
                                             }} label="My reservations" />
                                         <MenuItem onClick={() => { }} label="My properties" />
                                         <MenuItem onClick={rentModal.onOpen} label="Airbnb my home" />
