@@ -29,7 +29,10 @@ export default async function ListingPage(){
 
   return (
     <ClientOnly>
-      <FavoritesClient />
+      <FavoritesClient 
+        listings={listings}
+        currentUser={currentUser}
+      />
     </ClientOnly>
   )
 }
