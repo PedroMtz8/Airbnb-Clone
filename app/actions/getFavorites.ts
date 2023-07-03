@@ -22,6 +22,5 @@ export default async function getFavoriteListings() {
     return safeFavorites;
   } catch (error: any) {
     return null;
-    // return new Response('User already exists', { status: 500 });
   }
 }

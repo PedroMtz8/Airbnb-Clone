@@ -128,4 +128,4 @@ function UserMenu({ currentUser }: UserMenuProps) {
     )
 }
 
-export default UserMenu
+export default UserMenu;
