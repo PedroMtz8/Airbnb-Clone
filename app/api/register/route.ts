@@ -13,7 +13,7 @@ export async function POST(req: Request) {
     where: {
       email: email,
     }
-  })
+  });
   if (existingUser) {
     return new Response('User already exists', { status: 400 });
   }

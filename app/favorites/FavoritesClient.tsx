@@ -4,7 +4,7 @@ import { SafeListing, SaveUser } from '../types';
 
 interface FavoritesClientProps {
   listings: SafeListing[] | null;
-  currentUser?: SaveUser
+  currentUser?: SaveUser;
 }
 
 function FavoritesClient({listings, currentUser}: FavoritesClientProps){
