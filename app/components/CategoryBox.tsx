@@ -61,7 +61,7 @@ function CategoryBox({ label, icon: Icon, selected }: CategoryBoxProps) {
                 {label}
             </div>
         </div>
-    )
+    );
 }
 
 export default CategoryBox;

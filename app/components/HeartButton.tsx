@@ -6,7 +6,7 @@ import useFavorite from '../hooks/useFavorite';
 
 interface HeartButtonProps {
   listingId: string;
-  currentUser?: SaveUser | null
+  currentUser?: SaveUser | null;
 }
 
 function HeartButton({ listingId, currentUser }: HeartButtonProps) {
@@ -33,7 +33,7 @@ function HeartButton({ listingId, currentUser }: HeartButtonProps) {
         }
       />
     </div>
-  )
+  );
 }
 
 export default HeartButton;

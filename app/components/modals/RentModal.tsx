@@ -272,7 +272,7 @@ function RentModal() {
             secondaryActionLabel={secondaryActionLabel}
             secondaryAction={step === STEPS.CATEGORY ? undefined : onBack}
         />
-    )
+    );
 }
 
 export default RentModal;
