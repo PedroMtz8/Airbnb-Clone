@@ -93,19 +93,30 @@ function UserMenu({ currentUser }: UserMenuProps) {
                             {
                                 currentUser ? (
                                     <>
-                                        <MenuItem onClick={() => {
-                                            router.push("/trips")
-                                            toggleMenu()
-                                            }} label="My trips" />
-                                        <MenuItem onClick={() => {
-                                            router.push("/favorites")
-                                            toggleMenu()
-                                            }} label="My favorites" />
-                                        <MenuItem onClick={() => {
-                                            router.push("/reservations")
-                                            toggleMenu()
-                                            }} label="My reservations" />
-                                        <MenuItem onClick={() => { }} label="My properties" />
+                                        <MenuItem 
+                                            onClick={() => {
+                                                router.push("/trips")
+                                                toggleMenu()
+                                            }} 
+                                            label="My trips" />
+                                        <MenuItem 
+                                            onClick={() => {
+                                                router.push("/favorites")
+                                                toggleMenu()
+                                            }} 
+                                            label="My favorites" />
+                                        <MenuItem 
+                                            onClick={() => {
+                                                router.push("/reservations")
+                                                toggleMenu()
+                                            }} 
+                                            label="My reservations" />
+                                        <MenuItem 
+                                            onClick={() => { 
+                                                router.push("/properties")
+                                                toggleMenu()
+                                            }} 
+                                            label="My properties" />
                                         <MenuItem onClick={rentModal.onOpen} label="Airbnb my home" />
                                         <hr />
                                         <MenuItem onClick={() => signOut()} label="Logout" />
