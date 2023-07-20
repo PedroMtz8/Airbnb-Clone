@@ -75,5 +75,4 @@ function PropertiesClient({listings, currentUser}: PropertiesClientProps) {
   )
 }
 
-
 export default PropertiesClient;
