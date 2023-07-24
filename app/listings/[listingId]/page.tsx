@@ -25,9 +25,6 @@ export async function generateMetadata({params: { listingId } }: Params){
     openGraph: {
       images: [listing?.imageSrc],
     },
-    // icons: {
-    //   icon: listing?.imageSrc
-    // },
   }
 
 }
