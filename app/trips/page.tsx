@@ -19,7 +19,7 @@ export default async function TripsPage(){
   const reservations = await getReservations({userId: currentUser.id});
   // console.log(reservations)
 
-  if (reservations.length === 0) return (
+  if (!reservations || reservations.length === 0) return (
     <ClientOnly>
       <EmptyState 
         title='No trips found'
