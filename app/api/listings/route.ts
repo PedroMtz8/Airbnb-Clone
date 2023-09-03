@@ -40,9 +40,9 @@ export async function POST(request: Request) {
     userId: currentUser.id,
   }
 
-  console.log(data)
+  // console.log(data)
 
-  /* const listing = await prisma.listing.create({
+  const listing = await prisma.listing.create({
     data: {
       title,
       description,
@@ -57,6 +57,6 @@ export async function POST(request: Request) {
     }
   })
 
-  return NextResponse.json(listing) */
+  return NextResponse.json(listing)
 
 }

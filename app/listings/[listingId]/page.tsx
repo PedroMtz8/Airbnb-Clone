@@ -19,6 +19,10 @@ type Params = {
 
 export async function generateMetadata({params: { listingId } }: Params){
   const listing = await getListingById({ listingId });
+  if (!listing) return {
+    title: 'Not found | Airbnb',
+    description: 'Page not found'
+  }
   return {
     title: listing?.title + " | Airbnb",
     description: listing?.description,
