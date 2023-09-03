@@ -65,7 +65,8 @@ function ListingClient({ listing, currentUser, reservations = [] }: ListingClien
         // redirect to /trips
         router.push("/trips");
       })
-      .catch(() => {
+      .catch((error) => {
+        console.log(error);
         toast.error("Something went wrong");
       })
       .finally(() => {

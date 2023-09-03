@@ -37,11 +37,10 @@ async function ListingPage({ params }: { params: IParams }) {
   const listing = await getListingById(params);
   const currentUser = await getCurrentUser();
   const reservations = await getReservations(params);
-  // console.log(listing.)
 
-  if (!listing) return (
+  if (!listing || !reservations) return (
     <ClientOnly>
-      <EmptyState />
+      <EmptyState title='Listing not found' subtitle='Try going home' />
     </ClientOnly>
   )
 
