@@ -20,7 +20,7 @@ export default async function PropertiesPage(){
   const listings = await getListings({userId: currentUser.id});
   // console.log(reservations)
 
-  if (listings.length === 0) return (
+  if (!listings || listings.length === 0) return (
     <ClientOnly>
       <EmptyState 
         title='No properties found'
