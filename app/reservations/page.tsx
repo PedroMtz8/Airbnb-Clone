@@ -22,7 +22,7 @@ export default async function ReservationPage(){
     authorId: currentUser.id
   });
 
-  if(reservations?.length === 0) return (
+  if(!reservations || reservations?.length === 0) return (
     <ClientOnly>
       <EmptyState 
         title="No reservations found"
