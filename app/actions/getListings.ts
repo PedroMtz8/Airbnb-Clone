@@ -3,12 +3,12 @@ import { Listing } from '@prisma/client';
 
 export interface IListingParams {
   userId?: string;
+  category?: string;
 }
 
 export default async function getListings(params: IListingParams) {
   try {
-
-    const { userId } = params;
+    const { userId, category } = params;
 
     let query = {};
 
@@ -16,6 +16,11 @@ export default async function getListings(params: IListingParams) {
       query = {
         userId: userId
       };
+    }
+    if (category) {
+      query = {
+        category
+      }
     }
 
     const listings = await prisma.listing.findMany({
