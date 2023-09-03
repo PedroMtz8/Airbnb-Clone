@@ -1,4 +1,3 @@
-import ClientOnly from './components/ClientOnly'
 import Navbar from './components/Navbar/Navbar'
 import RegisterModal from './components/modals/RegisterModal'
 import LoginModal from './components/modals/LoginModal'
@@ -27,13 +26,11 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={font.className} >
-        <ClientOnly>
-          <ToasterProvider />
-          <RegisterModal />
-          <LoginModal />
-          <RentModal />
-          <Navbar currentUser={currentUser} />
-        </ClientOnly>
+        <ToasterProvider />
+        <RegisterModal />
+        <LoginModal />
+        <RentModal />
+        <Navbar currentUser={currentUser} />
         <div className='pb-20 pt-28'>
         {children}
         </div>

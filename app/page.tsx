@@ -1,5 +1,4 @@
 import getListings, { IListingParams } from './actions/getListings';
-import ClientOnly from './components/ClientOnly';
 import Container from './components/Container';
 import EmptyState from './components/EmptyState';
 import ListingCard from './components/Listings/ListingCard';
@@ -10,20 +9,19 @@ interface HomeProps {
 }
 
 export default async function Home({ searchParams }: HomeProps) {
-  const isEmpty = true;
   const listings = await getListings(searchParams);
   const currentUser = await getCurrentUser();
 
   if (!listings || listings.length === 0) {
     return (
-      <ClientOnly>
+      <>
         <EmptyState showReset />
-      </ClientOnly>
+      </>
     )
   }
 
   return (
-    <ClientOnly >
+    <>
       <Container>
         <div className='
           pt-24
@@ -47,6 +45,6 @@ export default async function Home({ searchParams }: HomeProps) {
           }
         </div>
       </Container>
-    </ClientOnly>
+    </>
   )
 }
