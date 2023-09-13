@@ -33,9 +33,9 @@ export async function generateMetadata({params: { listingId } }: Params){
 async function ListingPage({ params }: { params: IParams }) {
   const listing = await getListingById(params);
   const currentUser = await getCurrentUser();
-  const reservations = await getReservations(params);
+  const reservations = await getReservations({listingId: params.listingId, userId: currentUser?.id});
 
-  if (!listing || !reservations) return (
+  if (!listing) return (
     <>
       <EmptyState title='Listing not found' subtitle='Try going home' />
     </>

@@ -31,7 +31,6 @@ export default async function ReservationPage(){
   )
 
 
-  console.log(reservations);
   return(
     <>
       {/* <div>something</div> */}
