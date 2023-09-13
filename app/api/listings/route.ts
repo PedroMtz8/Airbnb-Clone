@@ -40,8 +40,6 @@ export async function POST(request: Request) {
     userId: currentUser.id,
   }
 
-  // console.log(data)
-
   const listing = await prisma.listing.create({
     data: {
       title,

@@ -25,7 +25,6 @@ interface ListingCardProps {
 function ListingCard({ data, reservation, onAction, disabled, actionLabel, actionId = "", currentUser, displayUser }: ListingCardProps) {
   const router = useRouter();
   const { getByValue } = useCountries();
-  // console.log
   const location = getByValue(data.locationValue);
 
   const handleCancel = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {

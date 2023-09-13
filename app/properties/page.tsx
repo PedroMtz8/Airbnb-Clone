@@ -16,7 +16,6 @@ export default async function PropertiesPage(){
   )
 
   const listings = await getListings({userId: currentUser.id});
-  // console.log(reservations)
 
   if (!listings || listings.length === 0) return (
     <>
