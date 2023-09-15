@@ -35,7 +35,7 @@ export default async function Home({ searchParams }: HomeProps) {
           gap-8
         '>
           {
-            listings.map(listing => (
+            listings.map((listing) => (
               <ListingCard
                 currentUser={currentUser || null}
                 key={listing.title}
