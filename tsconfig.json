@@ -23,10 +23,17 @@
         "name": "next"
       }
     ],
+    "baseUrl": "./",
     "paths": {
       "@/*": [
         "./*"
-      ]
+      ],
+      "@/public": [
+        "./public"
+      ],
+      "@/components*": [
+        "./app/components*"
+      ],
     }
   },
   "include": [
