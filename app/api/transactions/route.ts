@@ -7,6 +7,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
 
 
 import getCurrentUser from '@/app/actions/getCurrentUser';
+import { sendReserveMail } from '@/app/providers/nodemailer';
 
 export async function POST(req: Request) {
   const currentUser = await getCurrentUser();
@@ -23,12 +24,16 @@ export async function POST(req: Request) {
     description,
     email,
     userName,
+    listingId,
+    title,
+    url
   } = body;
   // console.log(body);
 
   const amountWithTwoZeros = Number(amount.toString() + '00');
 
   try {
+
     const existingCustomer = await stripe.customers.list({
       email: email,
       limit: 1
@@ -56,6 +61,8 @@ export async function POST(req: Request) {
         'card',
       ],
     });
+
+    await sendReserveMail(email, description, amount, listingId, title, url);
 
     return NextResponse.json({ message: 'creado', payment }, { status: 200 });
   } catch (error) {

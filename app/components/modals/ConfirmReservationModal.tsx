@@ -21,6 +21,7 @@ function CheckoutForm() {
     const stripe = useStripe();
     const elements = useElements();
     const [isLoading, setIsLoading] = useState(false);
+    const confirmModal = useConfirmReservation();
     const router = useRouter();
     const { listingData, totalPrice, currentUser, onSubmit } = useListing();
 
@@ -35,38 +36,48 @@ function CheckoutForm() {
             if(!error){
                 const { id } = paymentMethod;
                 // console.log(paymentMethod, listingContext)
+                setIsLoading(true);
                 const description = `Rent :${listingData?.title}, Reference DB Property ID: ${listingData?.id} `
                 try {
-                    const res = await axios.post('/api/transactions',{
+                    await axios.post('/api/transactions',{
                         id,
                         amount: totalPrice,
                         email: currentUser.email,
                         userName: currentUser.name,
                         description,
+                        title: listingData?.title,
+                        url: window.location.origin + '/trips',
                     });
                     toast.success('Payment successful')
 
-                    console.log(res.data);
                     if(onSubmit){
                         onSubmit();
                     }
                     toast.success('Listing reserved')
-                    router.push("/trips");
+                    router.refresh();
 
                 } catch (error) {
                     console.log(error);
                     toast.error('Hubo un error')
                 }
+                finally{
+                    confirmModal.onClose();
+                    setIsLoading(false);
+                    setTimeout(() => {
+                        router.push("/trips");
+                    }, 1000)
+                }
             }
         }
     }
     return (
-        <form>
+        <form onSubmit={onConfirmSubmit}>
           <CardElement />
-          <div>
-            <p>Property to reserve: {listingData?.title} Rooms: {listingData?.roomCount} </p>
-            <p>Total Price: {totalPrice} </p>
-            <button onClick={onConfirmSubmit} >Buy</button>
+          <div className='flex flex-col gap-4 mt-4'>
+            <p><b> Property to reserve:</b> {listingData?.title} </p>
+            <p><b>Rooms:</b> {listingData?.roomCount} </p>
+            <p> <b>Total Price:</b> {totalPrice} </p>
+            <Button label='Buy' onClick={onConfirmSubmit} disabled={isLoading} type='submit' />
           </div>
         </form>
     )
@@ -94,81 +105,9 @@ const ConfirmReservationModal = () => {
                     subtitle="Add your debit or credit card"
                 />
                 <StripePayment />
-            {/* <Input
-                id="email"
-                label="Email"
-                disabled={isLoading}
-                register={register}
-                errors={errors}
-                required
-                />
-            <Input
-                id="name"
-                label="Name"
-                disabled={isLoading}
-                register={register}
-                errors={errors}
-                required
-                />
-            <Input
-                id="password"
-                label="Password"
-                    type="password"
-                disabled={isLoading}
-                register={register}
-                errors={errors}
-                    required
-                />
-                <Button
-                    disabled={isLoading}
-                    label={"Continue"}
-                    onClick={handleSubmit(onSubmit)}
-                    type="submit"
-                /> */}
-                <div className="flex justify-center translate-y-3">
-                    {/* <p>Or</p> */}
-                </div>
-
             </div>
         </>
     )
-
-    // const footerContent = (
-    //     <div className="flex flex-col gap-4 ">
-    //         <hr />
-    //         <Button
-    //             outline
-    //             label="Continue with Google"
-    //             icon={FcGoogle}
-    //             onClick={() => signIn('google')}
-    //         />
-    //         <Button
-    //             outline 
-    //             label="Continue with Github"
-    //             icon={AiFillGithub}
-    //             onClick={() => signIn('github')}
-    //         />
-    //         <div
-    //             className="
-    //       text-neutral-500 
-    //       text-center 
-    //       mt-4 
-    //       font-light
-    //     "
-    //         >
-    //             <p>Already have an account?
-    //                 <span
-    //                     onClick={onToggle}
-    //                     className="
-    //           text-neutral-800
-    //           cursor-pointer 
-    //           hover:underline
-    //         "
-    //                 > Log in</span>
-    //             </p>
-    //         </div>
-    //     </div>
-    // )
 
     return (
         <Modal
@@ -179,6 +118,7 @@ const ConfirmReservationModal = () => {
             onClose={confirmReservation.onClose}
             onSubmit={() => {}}
             body={bodyContent}
+            showBtn={false}
             // footer={footerContent}
         />
     );

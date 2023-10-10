@@ -14,14 +14,22 @@ interface ModalProps {
     disabled?: boolean;
     secondaryAction?: () => void;
     secondaryActionLabel?: string;
+    showBtn?: boolean;
 }
 
 function Modal({
-    isOpen, onClose, onSubmit,
-    title, body, footer,
-    actionLabel, disabled,
-    secondaryAction, secondaryActionLabel }
-    : ModalProps) {
+    isOpen, 
+    onClose, 
+    onSubmit,
+    title, 
+    body, 
+    footer,
+    actionLabel, 
+    disabled,
+    secondaryAction, 
+    secondaryActionLabel, 
+    showBtn = true
+}: ModalProps) {
     const [showModal, setShowModal] = useState(isOpen);
     const handleClose = useCallback(() => {
         if (disabled) return;
@@ -146,7 +154,8 @@ function Modal({
 
                             {/* FOOTER */}
 
-                            <footer className="flex flex-col gap-2 px-6 pb-6" >
+                            {
+                                showBtn && <footer className="flex flex-col gap-2 px-6 pb-6" >
                                 <div className="flex flex-row items-center gap-4 w-full">
                                     {
                                         secondaryAction && secondaryActionLabel && (
@@ -170,6 +179,8 @@ function Modal({
                                 </div>
                                 {footer}
                             </footer>
+                            }
+                            
                         </div>
                     </div>
                 </div>
