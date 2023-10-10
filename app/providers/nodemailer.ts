@@ -45,3 +45,25 @@ export const sendReserveMail: ReservationMail = async (
     throw error; // Re-throw the error to handle it at a higher level if needed.
   }
 };
+
+
+export const welcomeMail = async (name: string, email: string) => {
+  const mailOptions = {
+    from: emailSender,
+    to: email,
+    subject: `Welcome to Airbnb ${name}!`,
+    text: `Welcome to Airbnb ${name}!`,
+    html: `
+    <h1>${name} You signed up Airbnb</h1>
+    <p>Enjoy traveling with all available trips around the world!</p>
+    `
+  };
+
+
+  try {
+    const info = await transporter.sendMail(mailOptions);
+  } catch (error) {
+    console.error(error);
+    throw error; // Re-throw the error to handle it at a higher level if needed.
+  }
+}

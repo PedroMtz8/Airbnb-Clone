@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import prisma from "@/app/libs/prismadb";
+import { welcomeMail } from '@/app/providers/nodemailer';
 
 export async function POST(req: Request) {
   const body = await req.json();
@@ -25,6 +26,8 @@ export async function POST(req: Request) {
       hashedPassword,
     },
   });
+
+  await welcomeMail(name, email);
 
   return NextResponse.json(user);
 }
