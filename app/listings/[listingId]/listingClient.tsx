@@ -12,6 +12,7 @@ import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import ListingReservation from '@/app/components/Listings/ListingReservation';
 import { Range } from 'react-date-range';
+import useListing from '@/app/providers/useListing';
 
 interface ListingClientProps {
   reservations?: SafeReservation[],
@@ -60,10 +61,10 @@ function ListingClient({ listing, currentUser, reservations = [] }: ListingClien
       listingId: listing?.id
     })
       .then(() => {
-        toast.success("Listing reserved");
+        // toast.success("Listing reserved");
         setDateRange(initialDateRange);
         // redirect to /trips
-        router.push("/trips");
+        // router.push("/trips");
       })
       .catch((error) => {
         console.log(error);
@@ -79,9 +80,17 @@ function ListingClient({ listing, currentUser, reservations = [] }: ListingClien
     dateRange.startDate,
     dateRange.endDate,
     listing?.id,
-    router,
     totalPrice
   ])
+
+  const { setTotalPrice: setStoreTotalPrice, setListingData, setOnSubmit, setCurrentUser } = useListing();
+
+  useEffect(() => {
+    setListingData(listing);
+    setStoreTotalPrice(totalPrice);
+    setOnSubmit(onCreateReservation)
+    setCurrentUser(currentUser);
+  },[listing, onCreateReservation, totalPrice, setStoreTotalPrice, setOnSubmit, setListingData, setCurrentUser, currentUser]);
 
   useEffect(() => {
     if (dateRange.startDate && dateRange.endDate){
@@ -141,6 +150,7 @@ function ListingClient({ listing, currentUser, reservations = [] }: ListingClien
             '
           >
             <ListingReservation 
+              currentUser={currentUser}
               price={listing.price}
               totalPrice={totalPrice}
               onChangeDate={(value: any) => setDateRange(value)}

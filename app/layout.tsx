@@ -7,16 +7,9 @@ import ToasterProvider from './providers/ToasterProvider'
 import getCurrentUser from './actions/getCurrentUser'
 import RentModal from '@/components/modals/RentModal'
 import { headers } from 'next/headers'
-// import logoCircle from '@/public/images/logo_circle.png'
 import logoCircle from '@/public/images/logo_circle.png'
 
-// export const metadata = {
-//   title: 'Airbnb',
-//   description: 'Airbnb clone',
-//   openGraph: {
-//     images: []
-//   }
-// }
+
 
 export function generateMetadata() {
   const headersList = headers();
