@@ -5,6 +5,20 @@ import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
+import { welcomeMail } from '@/app/providers/nodemailer';
+import nodemailer from "nodemailer";
+
+const emailSender = "pedrocmartinez568@gmail.com"
+
+const transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true, // true for 465, false for other ports
+  auth: {
+    user: emailSender,
+    pass: process.env.MAILER_PASSWORD
+  },
+});
 
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -49,6 +63,38 @@ export const authOptions: AuthOptions = {
       },
     }),
   ],
+  callbacks: {
+    async signIn({ user }) {
+      if (user.email && user.name) {
+
+        const userDB = await prisma.user.findUnique({
+          where: {
+            email: user.email,
+          },
+        });
+        console.log('EXISTE?', userDB)
+
+        if (!userDB) {
+          console.log('NO EXISTEEEE')
+          const mailOptions = {
+            from: emailSender,
+            to: user.email,
+            subject: `Welcome to Airbnb ${user.name}!`,
+            text: `Welcome to Airbnb ${user.name}!`,
+            html: `
+            <h1>${user.name} You signed up Airbnb</h1>
+            <p>Enjoy traveling with all available trips around the world!</p>
+            `
+          };
+
+
+          await transporter.sendMail(mailOptions);
+        }
+
+      }
+      return true
+    },
+  },
   pages: {
     signIn: "/",
   },

@@ -113,7 +113,10 @@ const RegisterModal = () => {
                 outline
                 label="Continue with Google"
                 icon={FcGoogle}
-                onClick={() => signIn('google')}
+                onClick={async () => {
+                    const res = await signIn('google')
+                    console.log('resultado siging', res);
+                }}
             />
             <Button
                 outline 

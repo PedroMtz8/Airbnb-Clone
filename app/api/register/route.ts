@@ -26,8 +26,9 @@ export async function POST(req: Request) {
       hashedPassword,
     },
   });
-
+  console.log('antes de enviar el correo')
   await welcomeMail(name, email);
+  console.log('despues de enviar el correo')
 
   return NextResponse.json(user);
 }
