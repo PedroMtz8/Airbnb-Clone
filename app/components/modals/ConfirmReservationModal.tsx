@@ -16,7 +16,6 @@ import { useRouter } from 'next/navigation';
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string);
 
-
 function CheckoutForm() {
     const stripe = useStripe();
     const elements = useElements();
@@ -24,6 +23,8 @@ function CheckoutForm() {
     const confirmModal = useConfirmReservation();
     const router = useRouter();
     const { listingData, totalPrice, currentUser, onSubmit } = useListing();
+    const lData = listingData as unknown as SafeListing;
+    // SafeListing
 
     const onConfirmSubmit = async (e: any) => {
         e.preventDefault();
@@ -37,7 +38,7 @@ function CheckoutForm() {
                 const { id } = paymentMethod;
                 // console.log(paymentMethod, listingContext)
                 setIsLoading(true);
-                const description = `Rent :${listingData?.title}, Reference DB Property ID: ${listingData?.id} `
+                const description = `Rent :${lData.title}, Reference DB Property ID: ${lData.id} `
                 try {
                     await axios.post('/api/transactions',{
                         id,
@@ -45,8 +46,9 @@ function CheckoutForm() {
                         email: currentUser.email,
                         userName: currentUser.name,
                         description,
-                        title: listingData?.title,
+                        title: lData.title,
                         url: window.location.origin + '/trips',
+                        imageSrc: lData.imageSrc,
                     });
                     toast.success('Payment successful')
 
