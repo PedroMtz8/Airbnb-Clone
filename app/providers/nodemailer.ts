@@ -1,4 +1,6 @@
 import nodemailer from "nodemailer";
+import { render } from '@react-email/render';
+import ReserveEmail from '../emailTemplates/email';
 
 const emailSender = "pedrocmartinez568@gmail.com"
 
@@ -12,7 +14,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-type ReservationMail = (email: string, description: string, price: number, listingId: string, title: string, url: string) => Promise<void>;
+type ReservationMail = (email: string, description: string, price: number, listingId: string, title: string, url: string, imageSrc: string) => Promise<void>;
 
 export const sendReserveMail: ReservationMail = async (
   email,
@@ -20,23 +22,19 @@ export const sendReserveMail: ReservationMail = async (
   price,
   listingId,
   title,
-  url
+  url,
+  imageSrc,
 ) => {
+
+  const emailHtml = render(ReserveEmail({ title, price, url, imageSrc }));
+
   const mailOptions = {
     from: emailSender,
     to: email,
     subject: `Thanks for reserving with Airbnb, enjoy your trip!`,
     text: `You have reserved ${title} for ${price}!`,
-    html: `
-    <h1>Confirmation</h1>
-    <p>You have reserved ${title} for ${price}!</p>
-    <p>You can see your reservation on the button below</p>
-    <a href="${url}">
-      <button>Go reservation</button>
-    </a>
-    `
+    html: emailHtml,
   };
-
 
   try {
     const info = await transporter.sendMail(mailOptions);

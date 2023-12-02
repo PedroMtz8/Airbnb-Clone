@@ -26,7 +26,8 @@ export async function POST(req: Request) {
     userName,
     listingId,
     title,
-    url
+    url,
+    imageSrc,
   } = body;
   // console.log(body);
 
@@ -62,7 +63,7 @@ export async function POST(req: Request) {
       ],
     });
 
-    await sendReserveMail(email, description, amount, listingId, title, url);
+    await sendReserveMail(email, description, amount, listingId, title, url, imageSrc);
 
     return NextResponse.json({ message: 'creado', payment }, { status: 200 });
   } catch (error) {
