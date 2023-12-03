@@ -2,13 +2,14 @@
 import { AiOutlineMenu } from "react-icons/ai"
 import Avatar from "../Avatar"
 import MenuItem from "./MenuItem"
-import { useCallback, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import useLoginModal from "@/app/hooks/useLoginModal";
 import useRentModal from "@/app/hooks/userRentModal";
 import { signOut } from "next-auth/react"
 import { SaveUser } from "@/app/types";
 import { useRouter } from 'next/navigation';
+import useUserMenu from '@/app/hooks/useUserMenu';
 
 interface UserMenuProps {
     currentUser?: SaveUser | null
@@ -18,12 +19,14 @@ function UserMenu({ currentUser }: UserMenuProps) {
     const registerModal = useRegisterModal();
     const loginModal = useLoginModal();
     const rentModal = useRentModal();
-    const [isOpen, setIsOpen] = useState(false);
+
+    const { isOpen, onOpen, onClose, modalRef } = useUserMenu();
     const router = useRouter();
 
     const toggleMenu = useCallback(() => {
-        setIsOpen(value => !value)
-    }, [])
+        isOpen ? onClose() : onOpen();
+        // setIsOpen(value => !value)
+    }, [onOpen, onClose, isOpen]);
 
     const onRent = useCallback(() => {
         if (!currentUser) return loginModal.onOpen();
@@ -31,9 +34,30 @@ function UserMenu({ currentUser }: UserMenuProps) {
 
     }, [currentUser, loginModal, rentModal]);
 
+    useEffect(() => {
+        function handleClick(event: any) {
+
+          if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+            onClose(); // Cierra el menú si se hace clic fuera del menú del usuario
+          }
+        }
+    
+        // Agregar el event listener al montar el componente
+        document.addEventListener('click', handleClick);
+    
+        // Remover el event listener al desmontar el componente
+        return () => {
+          document.removeEventListener('click', handleClick);
+        };
+      }, [modalRef, onClose]);
+
     return (
-        <div className="relative ">
-            <div className="flex flex-row items-center gap-3">
+        <div className="relative "
+        >
+            <div className="flex flex-row items-center gap-3"
+                onClick={toggleMenu}
+                ref={modalRef}
+            >
                 <div
                     onClick={onRent}
                     className="
@@ -51,7 +75,7 @@ function UserMenu({ currentUser }: UserMenuProps) {
                 >
                     Airbnb your home
                 </div>
-                <div onClick={toggleMenu}
+                <div
                     className="
                         p-4
                         md:py-1
