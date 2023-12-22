@@ -9,8 +9,6 @@ import RentModal from '@/components/modals/RentModal'
 import { headers } from 'next/headers'
 import logoCircle from '@/public/images/logo_circle.png'
 
-
-
 export function generateMetadata() {
   const headersList = headers();
 
@@ -50,7 +48,7 @@ export default async function RootLayout({
         <RentModal />
         <Navbar currentUser={currentUser} />
         <div className='pb-20 pt-28'>
-        {children}
+          {children}
         </div>
       </body>
     </html>
