@@ -1,13 +1,22 @@
 'use client';
 
+import { useRef } from 'react';
 import { BiSearch } from "react-icons/bi"
+import useClickOutside from '@/app/hooks/useClickOutside';
+import useExtendedNavbar from '@/app/hooks/useExtendedNavbar';
+
 
 const Search = () => {
+    const navbarState = useExtendedNavbar();
+    const { onOpen, onClose} = useExtendedNavbar();
+    const modalRef = useRef(null);
+    useClickOutside<HTMLDivElement>(modalRef, onClose, onOpen);
+    
     return (
         <div
+            ref={modalRef}
             className="
                 border-[1px]
-                w-full
                 md:w-auto
                 py-2
                 rounded-full
@@ -15,15 +24,22 @@ const Search = () => {
                 hover:shadow-md
                 transition
                 cursor-pointer
-                "
-        >
+                relative
+                flex
+                justify-center
+            "
+            >
+            {
+                navbarState.isOpen && <ExtendedSearch />
+            }
+            
             <div
                 className="
                   flex
                   flex-row
                   items-center
                   justify-between
-                    "
+                  "
             >
                 <div
                     className="
@@ -52,7 +68,8 @@ const Search = () => {
                 <div
                     className="
                         text-sm
-                        pl-6
+                        md:pl-6
+                        pl-3
                         pr-2
                         text-gray-600
                         flex
@@ -79,3 +96,13 @@ const Search = () => {
 }
 
 export default Search;
+
+function ExtendedSearch() {
+    return (
+        <div className="min-w-[350px] w-[600px] h-[300px] bg-white border-[1px] shadow absolute top-[60px] rounded-md mx-[30px] ">
+            <h1>Hola</h1>
+        </div>
+    )
+}
+
+
