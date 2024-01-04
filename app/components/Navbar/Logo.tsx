@@ -11,8 +11,6 @@ const Logo = () => {
             <Image alt="Logo"
                 onClick={() => router.push("/")}
                 className="
-                  hidden 
-                  md:block 
                   cursor-pointer
                   w-full
                   h-auto
