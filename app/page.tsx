@@ -20,6 +20,8 @@ export default async function Home({ searchParams }: HomeProps) {
     )
   }
 
+  /*  */
+
   return (
     <>
       <Container>
