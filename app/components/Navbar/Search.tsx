@@ -23,7 +23,6 @@ const Search = () => {
                 shadow-sm
                 hover:shadow-md
                 transition
-                cursor-pointer
                 relative
                 flex
                 justify-center
@@ -39,6 +38,7 @@ const Search = () => {
                   flex-row
                   items-center
                   justify-between
+                cursor-pointer
                   "
             >
                 <div
@@ -99,7 +99,7 @@ export default Search;
 
 function ExtendedSearch() {
     return (
-        <div className="min-w-[350px] w-[600px] h-[300px] bg-white border-[1px] shadow absolute top-[60px] rounded-md mx-[30px] ">
+        <div className="min-w-[350px] w-[600px] h-[300px] bg-white border-[1px] shadow absolute top-[60px] rounded-md mx-[30px] p-[10px] cursor-normal ">
             <h1>Hola</h1>
         </div>
     )
