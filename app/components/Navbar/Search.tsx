@@ -28,10 +28,7 @@ const Search = () => {
                 justify-center
             "
             >
-            {
-                navbarState.isOpen && <ExtendedSearch />
-            }
-            
+            { navbarState.isOpen && <ExtendedSearch /> }
             <div
                 className="
                   flex
@@ -49,7 +46,6 @@ const Search = () => {
                         "
                 >
                     Anywhere
-
                 </div>
                 <div
                     className="
