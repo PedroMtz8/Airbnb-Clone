@@ -1,104 +1,146 @@
 'use client';
 
-import { useRef } from 'react';
-import { BiSearch } from "react-icons/bi"
-import useClickOutside from '@/app/hooks/useClickOutside';
-import useExtendedNavbar from '@/app/hooks/useExtendedNavbar';
+import { useSearchParams } from 'next/navigation';
+import { useMemo } from 'react';
+import { BiSearch } from 'react-icons/bi';
+import { differenceInDays } from 'date-fns';
 
+import useSearchModal from '@/app/hooks/useSearchModal';
+import useCountries from '@/app/hooks/useCountries';
 
 const Search = () => {
-    const navbarState = useExtendedNavbar();
-    const { onOpen, onClose} = useExtendedNavbar();
-    const modalRef = useRef(null);
-    useClickOutside<HTMLDivElement>(modalRef, onClose, onOpen);
-    
-    return (
-        <div
-            ref={modalRef}
-            className="
-                border-[1px]
-                md:w-auto
-                py-2
-                rounded-full
-                shadow-sm
-                hover:shadow-md
-                transition
-                relative
-                flex
-                justify-center
-            "
-            >
-            { navbarState.isOpen && <ExtendedSearch /> }
-            <div
-                className="
-                  flex
-                  flex-row
-                  items-center
-                  justify-between
-                cursor-pointer
-                  "
-            >
-                <div
-                    className="
-                        text-sm
-                        font-semibold
-                        px-6
-                        "
-                >
-                    Anywhere
-                </div>
-                <div
-                    className="
-                        hidden
-                        sm:block
-                        text-sm
-                        font-semibold
-                        px-6
-                        border-x-[1px]
-                        flex-1
-                        text-center
-                        "
-                >
-                    Any week
-                </div>
-                <div
-                    className="
-                        text-sm
-                        md:pl-6
-                        pl-3
-                        pr-2
-                        text-gray-600
-                        flex
-                        flex-row
-                        items-center
-                        gap-3
-                        "
-                >
-                    <div className="hidden sm:block"> Add Guests </div>
-                    <div className="
-                        p-2
-                        bg-rose-500
-                        rounded-full
-                        text-white
-                        "
-                    >
-                        <BiSearch size={18} />
-                    </div>
-                </div>
-            </div>
+  const searchModal = useSearchModal();
+  const params = useSearchParams();
+  const { getByValue } = useCountries();
 
+  const  locationValue = params?.get('locationValue'); 
+  const  startDate = params?.get('startDate');
+  const  endDate = params?.get('endDate');
+  const  guestCount = params?.get('guestCount');
+
+  const locationLabel = useMemo(() => {
+    if (locationValue) {
+      return getByValue(locationValue as string)?.label;
+    }
+
+    return 'Anywhere';
+  }, [locationValue, getByValue]);
+
+  const durationLabel = useMemo(() => {
+    if (startDate && endDate) {
+      const start = new Date(startDate as string);
+      const end = new Date(endDate as string);
+      let diff = differenceInDays(end, start);
+
+      if (diff === 0) {
+        diff = 1;
+      }
+
+      return `${diff} Days`;
+    }
+
+    return 'Any Week'
+  }, [startDate, endDate]);
+
+  const guestLabel = useMemo(() => {
+    if (guestCount) {
+      return `${guestCount} Guests`;
+    }
+
+    return 'Add Guests';
+  }, [guestCount]);
+
+  return ( 
+    <div
+      onClick={searchModal.onOpen}
+      className="
+        border-[1px] 
+        w-full 
+        md:w-auto 
+        py-2 
+        rounded-full 
+        shadow-sm 
+        hover:shadow-md 
+        transition 
+        cursor-pointer
+      "
+    >
+      <div 
+        className="
+          flex 
+          flex-row 
+          items-center 
+          justify-between
+        "
+      >
+        <div 
+          className="
+            text-sm 
+            font-semibold 
+            px-6
+          "
+        >
+          {locationLabel}
         </div>
-    );
+        <div 
+          className="
+            hidden 
+            sm:block 
+            text-sm 
+            font-semibold 
+            px-6 
+            border-x-[1px] 
+            flex-1 
+            text-center
+          "
+        >
+          {durationLabel}
+        </div>
+        <div 
+          className="
+            text-sm 
+            pl-6 
+            pr-2 
+            text-gray-600 
+            flex 
+            flex-row 
+            items-center 
+            gap-3
+          "
+        >
+          <div className="hidden sm:block">{guestLabel}</div>
+          <div 
+            className="
+              p-2 
+              bg-rose-500 
+              rounded-full 
+              text-white
+            "
+          >
+            <BiSearch size={18} />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
-
+ 
 export default Search;
 
-function ExtendedSearch() {
-    return (
-        <div className="min-w-[350px] w-[600px] h-[300px] bg-white border-[1px] shadow absolute top-[60px] rounded-md mx-[30px] p-[10px] cursor-normal ">
-            <h1>Hola</h1>
-        </div>
-    )
-}
+// import { useRef } from 'react';
+// import useClickOutside from '@/app/hooks/useClickOutside';
+// import useExtendedNavbar from '@/app/hooks/useExtendedNavbar';
+    // const navbarState = useExtendedNavbar();
+    // const { onOpen, onClose} = useExtendedNavbar();
+    // const modalRef = useRef(null);
+    // useClickOutside<HTMLDivElement>(modalRef, onClose, onOpen);
 
+// function ExtendedSearch() {
+//     return (
+//         <div className="min-w-[350px] w-[600px] h-[300px] bg-white border-[1px] shadow absolute top-[60px] rounded-md mx-[30px] p-[10px] cursor-normal ">
+//             <h1>Hola</h1>
+//         </div>
+//     )
+// }
 
+{/* { navbarState.isOpen && <ExtendedSearch /> } */}
