@@ -8,6 +8,7 @@ import getCurrentUser from './actions/getCurrentUser'
 import RentModal from '@/components/modals/RentModal'
 import { headers } from 'next/headers'
 import logoCircle from '@/public/images/logo_circle.png'
+import SearchModal from './components/modals/SearchModal'
 
 export function generateMetadata() {
   const headersList = headers();
@@ -43,6 +44,7 @@ export default async function RootLayout({
     <html lang="en">
       <body className={font.className} >
         <ToasterProvider />
+        <SearchModal />
         <RegisterModal />
         <LoginModal />
         <RentModal />
